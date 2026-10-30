@@ -1,0 +1,32 @@
+name: Program Code Convention
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'ProgramCode.py'
+      - 'ProgramCodeModified.py'
+      - '.github/workflows/ProgramCodeConvention.yml'
+  workflow_dispatch:
+
+jobs:
+  CheckProgramCode:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Ruff Linter
+        run: python -m pip install ruff
+
+      - name: Check Python Code Convention
+        run: ruff check ProgramCode.py
+
+      - name: Run Python Program
+        run: python ProgramCode.py
