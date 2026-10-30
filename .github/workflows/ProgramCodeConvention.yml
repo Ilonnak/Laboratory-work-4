@@ -25,8 +25,8 @@ jobs:
       - name: Install Ruff Linter
         run: python -m pip install ruff
 
-      - name: Check Python Code Convention
-        run: ruff check ProgramCode.py
+      - name: Check Modified Python Code Convention
+        run: ruff check ProgramCodeModified.py
 
-      - name: Run Python Program
-        run: python ProgramCode.py
+      - name: Run Modified Python Program
+        run: python ProgramCodeModified.py
