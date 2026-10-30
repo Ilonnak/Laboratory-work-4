@@ -25,5 +25,5 @@ jobs:
       - name: Install JSON Schema Validator
         run: python -m pip install check-jsonschema
 
-      - name: Validate JSON Schema
-        run: check-jsonschema --check-metaschema DataSchema.json
+      - name: Validate Modified JSON Schema
+        run: check-jsonschema --check-metaschema DataSchemaModified.json
