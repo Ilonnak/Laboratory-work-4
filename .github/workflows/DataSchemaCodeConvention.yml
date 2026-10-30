@@ -25,5 +25,14 @@ jobs:
       - name: Install JSON Schema Validator
         run: python -m pip install check-jsonschema
 
+      - name: Validate Original JSON Schema
+        run: check-jsonschema --check-metaschema DataSchema.json
+
       - name: Validate Modified JSON Schema
-        run: check-jsonschema --check-metaschema DataSchemaModified.json
+        run: |
+          if check-jsonschema --check-metaschema DataSchemaModified.json; then
+            echo "ERROR: Modified schema unexpectedly passed validation"
+            exit 1
+          else
+            echo "Expected result: modified schema failed validation"
+          fi
