@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Steering AR Trainer",
+  "description": "Physical JSON data schema for steering wheel actions",
+  "type": "object",
+  "properties": {
+    "trainingConditions": {
+      "description": "Steering wheel angle limits",
+      "type": "object",
+      "properties": {
+        "maxLeftAngle": {
+          "description": "Maximum allowed left steering angle in degrees",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 360
+        },
+        "maxRightAngle": {
+          "description": "Maximum allowed right steering angle in degrees",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 360
+        }
+      },
+      "required": [
+        "maxLeftAngle",
+        "maxRightAngle"
+      ],
+      "additionalProperties": false
+    },
+    "steeringActions": {
+      "description": "Steering wheel actions",
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 1000,
+      "uniqueItems": false,
+      "items": {
+        "description": "Steering action and evaluation",
+        "type": "object",
+        "properties": {
+          "steeringAngle": {
+            "description": "Steering angle in degrees",
+            "type": "number",
+            "minimum": -360,
+            "maximum": 360
+          },
+          "feedback": {
+            "description": "Steering action feedback",
+            "type": "object",
+            "properties": {
+              "isCorrect": {
+                "description": "Whether the steering action is correct",
+                "type": "boolean"
+              },
+              "feedbackMessage": {
+                "description": "Steering action result",
+                "type": "string",
+                "enum": [
+                  "Дію виконано правильно",
+                  "Дію виконано неправильно"
+                ]
+              },
+              "errorDescription": {
+                "description": "Steering action error category",
+                "type": "string",
+                "enum": [
+                  "Помилки немає",
+                  "Перевищено кут вліво",
+                  "Перевищено кут вправо"
+                ]
+              }
+            },
+            "required": [
+              "isCorrect",
+              "feedbackMessage",
+              "errorDescription"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "steeringAngle",
+          "feedback"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "trainingConditions",
+    "steeringActions"
+  ],
+  "additionalProperties": false
+}
